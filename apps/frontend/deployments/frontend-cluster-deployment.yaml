@@ -33,7 +33,7 @@ spec:
         - name: frontend
           tty: true
           image: cuongpct109/frontend:init
-
+          restartPolicy: OnFailure
           # livenessProbe:
           #   httpGet:
           #     path: /
