@@ -32,8 +32,8 @@ spec:
       containers:
         - name: frontend
           tty: true
-          image: node:16.18.1
-          workingDir: /app
+          image: cuongpct109/frontend:init
+
           # livenessProbe:
           #   httpGet:
           #     path: /
@@ -47,8 +47,7 @@ spec:
             - name: app
               mountPath: /app
               # readOnly: true
-          command: ["yarn"]
-          args: ["install"]
+
           # resources:
           #   limits:
           #     memory: "200Mi"
