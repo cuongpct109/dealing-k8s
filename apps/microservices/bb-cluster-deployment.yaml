@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bb-order-cluster-deployment
+  name: bb-cluster-deployment
   namespace: app
 spec:
   strategy:
@@ -9,26 +9,26 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bb-order
+      app: bb
       version: "1"
   template:
     metadata:
       labels:
-        app: bb-order
+        app: bb
         version: "1"
     spec:
       volumes:
         - name: bb-build
           hostPath:
-            path: /apps/RunningServer/Source/bb-order/build
+            path: /apps/RunningServer/Source/bb/build
         - name: bb-script
           hostPath:
-            path: /apps/RunningServer/Source/bb-order/scripts/start-order.sh
+            path: /apps/RunningServer/Source/bb/scripts/start-order.sh
         - name: bb-log
           hostPath:
-            path: /apps/RunningServer/logs/bb-order
+            path: /apps/RunningServer/logs/bb
       containers:
-        - name: bb-order
+        - name: bb
           image: cuongpct109/bb-base:latest
           imagePullPolicy: IfNotPresent
           tty: true
