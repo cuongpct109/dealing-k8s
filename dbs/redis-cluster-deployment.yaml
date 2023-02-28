@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-cluster-deployment
+  namespace: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+      version: "1"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: redis
+        version: "1"
+    spec:
+      volumes:
+        - name: redis-data
+          hostPath:
+            path: /apps/RunningServer/Source/dbs/redis
+        - name: redis-log
+          hostPath:
+            path: /apps/RunningServer/Source/dbs/redis/log/redis_6379.log
+      containers:
+        - name: redis
+          image: redis:7.0.4
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - name: redis-data
+              mountPath: /data
+            - name: redis-log
+              mountPath: /data/log/redis_6379.log

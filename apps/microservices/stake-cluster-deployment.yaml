@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stake-cluster-deployment
+  namespace: app
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stake
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: stake
+        version: "1"
+    spec:
+      volumes:
+        - name: stake-build
+          hostPath:
+            path: /apps/RunningServer/Source/stake/build
+        - name: stake-script
+          hostPath:
+            path: /apps/RunningServer/Source/stake/scripts/start.sh
+        - name: stake-log
+          hostPath:
+            path: /apps/RunningServer/logs/stake
+      containers:
+        - name: stake
+          image: cuongpct109/stake-base:latest
+          imagePullPolicy: IfNotPresent
+          tty: true
+          volumeMounts:
+            - name: stake-build
+              mountPath: /usr/src/stake
+            - name: stake-script
+              mountPath: /usr/src/stake/start.sh
+            - name: stake-log
+              mountPath: /home/offshorevn/logs/stake
+          resources:
+            limits:
+              memory: "700Mi"
+              cpu: "200m"

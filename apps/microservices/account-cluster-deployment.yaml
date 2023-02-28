@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-cluster-deployment
+  namespace: app
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: account
+        version: "1"
+    spec:
+      volumes:
+        - name: account-build
+          hostPath:
+            path: /apps/RunningServer/Source/account/build
+        - name: account-script
+          hostPath:
+            path: /apps/RunningServer/Source/account/scripts/start.sh
+        - name: account-log
+          hostPath:
+            path: /apps/RunningServer/logs/account
+      containers:
+        - name: account
+          image: cuongpct109/account-base:latest
+          imagePullPolicy: IfNotPresent
+          tty: true
+          volumeMounts:
+            - name: account-build
+              mountPath: /usr/src/account
+            - name: account-script
+              mountPath: /usr/src/account/start.sh
+            - name: account-log
+              mountPath: /home/offshorevn/logs/account
+          resources:
+            limits:
+              memory: "1000Mi"
+              cpu: "300m"

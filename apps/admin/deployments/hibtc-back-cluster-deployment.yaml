@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hibtc-back-cluster-deployment
+  namespace: admin
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hibtc-back
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: hibtc-back
+        version: "1"
+    spec:
+      volumes:
+        - name: xex-back-build
+          hostPath:
+            path: /apps/RunningServer/Source/xex-back/dist/hibtc-back
+        - name: hibtc-web-back-build
+          hostPath:
+            path: /apps/RunningServer/Source/hibtc-web-back/build/libs/web
+        - name: xex-back-log
+          hostPath:
+            path: /apps/RunningServer/logs/hibtc-back/xex-back
+        - name: hibtc-web-back-log
+          hostPath:
+            path: /apps/RunningServer/logs/hibtc-back/hibtc-web-back/hibtc-web-back.log
+      containers:
+        - name: hibtc-back
+          image: cuongpct109/hibtc-back-base:latest
+          livenessProbe:
+            httpGet:
+              path: /hibtc-back/back/login
+              port: liveness-port
+            initialDelaySeconds: 80
+            periodSeconds: 1
+          ports:
+            - name: liveness-port
+              containerPort: 8085
+          volumeMounts:
+            - name: xex-back-build
+              mountPath: /usr/local/tomcat/webapps/hibtc-back
+              readOnly: true
+            - name: hibtc-web-back-build
+              mountPath: /usr/local/tomcat/webapps/web
+              readOnly: true
+            - name: xex-back-log
+              mountPath: /usr/local/tomcat/logs
+            - name: hibtc-web-back-log
+              mountPath: /home/hibtc_web_back/hibtc-web-back.log
+          resources:
+            limits:
+              memory: "5000Mi"
+              cpu: "5000m"

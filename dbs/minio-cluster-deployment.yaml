@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio-cluster-deployment
+  namespace: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: minio
+        version: "1"
+    spec:
+      volumes:
+        - name: minio-storage
+          hostPath:
+            path: /apps/RunningServer/Source/dbs/minio
+      containers:
+        - name: minio
+          image: minio/minio
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9000
+            - containerPort: 9001
+          env:
+            - name: MINIO_ROOT_USER
+              value: AKIAIOSFODNN7EXAMPLE
+            - name: MINIO_ROOT_PASSWORD
+              value: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+          volumeMounts:
+            - name: minio-storage
+              mountPath: /data
+          command: ["/bin/sh", "-c"]
+          args: ["minio server /data --console-address :9001"]
+---
+

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bb-exchange-cluster-deployment
+  namespace: app
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bb-exchange
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: bb-exchange
+        version: "1"
+    spec:
+      volumes:
+        - name: bb-build
+          hostPath:
+            path: /apps/RunningServer/Source/bb-exchange/build
+        - name: bb-script
+          hostPath:
+            path: /apps/RunningServer/Source/bb-exchange/scripts/start-exchange.sh
+        - name: bb-log
+          hostPath:
+            path: /apps/RunningServer/logs/bb-exchange
+      containers:
+        - name: bb-exchange
+          image: cuongpct109/bb-base:latest
+          imagePullPolicy: IfNotPresent
+          tty: true
+          volumeMounts:
+            - name: bb-build
+              mountPath: /usr/src/bb
+            - name: bb-script
+              mountPath: /usr/src/bb/start.sh
+            - name: bb-log
+              mountPath: /home/offshorevn/logs/bb
+          resources:
+            limits:
+              memory: "2000Mi"
+              cpu: "600m"

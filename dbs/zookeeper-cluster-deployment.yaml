@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper-cluster-deployment
+  namespace: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+        version: "1"
+    spec:
+      volumes:
+        - name: zk-data
+          hostPath:
+            path: /apps/RunningServer/Source/dbs/zookeeper/zkdata
+        - name: zk-conf
+          hostPath:
+            path: /apps/RunningServer/Source/dbs/zookeeper/conf
+
+      containers:
+        - name: zookeeper
+          image: zookeeper:3.6.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 2181
+            - containerPort: 2888
+            - containerPort: 3888
+            - containerPort: 8280
+            - containerPort: 8281
+          volumeMounts:
+            - name: zk-data
+              mountPath: /data/hibtc/file/zkdata
+            - name: zk-conf
+              mountPath: /conf

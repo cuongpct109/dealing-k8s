@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-cluster-deployment
+  namespace: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: mysql
+        version: "1"
+    spec:
+      volumes:
+        - name: mysql-init
+          hostPath:
+            path: /apps/RunningServer/Source/dbs/mysql/init
+        - name: mysql-data
+          hostPath:
+            path: /apps/RunningServer/Source/dbs/mysql/data
+        - name: mysql-conf
+          hostPath:
+            path: /apps/RunningServer/Source/dbs/mysql/conf/my.cnf
+      containers:
+        - name: mysql
+          image: mysql:5.7
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_USER
+              value: "service"
+            - name: MYSQL_PASSWORD
+              value: "service"
+            - name: MYSQL_ROOT_PASSWORD
+              value: "password"
+          volumeMounts:
+            - name: mysql-init
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+            - name: mysql-conf
+              mountPath: /etc/my.cnf
+              readOnly: true

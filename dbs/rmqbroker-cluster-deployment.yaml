@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmqbroker-cluster-deployment
+  namespace: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rmqbroker
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: rmqbroker
+        version: "1"
+    spec:
+      volumes:
+        - name: script
+          hostPath:
+            path: /apps/RunningServer/Source/dbs/rocketmq/scripts/runbroker-customize.sh
+        - name: log
+          hostPath:
+            path: /apps/RunningServer/Source/dbs/rocketmq/data/broker-master/logs
+        - name: store
+          hostPath:
+            path: /apps/RunningServer/Source/dbs/rocketmq/data/broker-master/store
+        - name: conf
+          hostPath:
+            path: /apps/RunningServer/Source/dbs/rocketmq/data/broker-master/conf
+      containers:
+        - name: rmqbroker
+          image: cuongpct109/rocketmq-broker-base:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 10909
+            - containerPort: 10911
+          volumeMounts:
+            - name: script
+              mountPath: /opt/rocketmq-4.9.4/bin/runbroker.sh
+              readOnly: true
+            - name: log
+              mountPath: /opt/logs
+            - name: store
+              mountPath: /opt/store
+            - name: conf
+              mountPath: /opt/conf
+              readOnly: true

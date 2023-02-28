@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-bot-cluster-deployment
+  namespace: app
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-bot
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: order-bot
+        version: "1"
+    spec:
+      volumes:
+        - name: order-bot-build
+          hostPath:
+            path: /apps/RunningServer/Source/order-bot/build
+        - name: order-bot-script
+          hostPath:
+            path: /apps/RunningServer/Source/order-bot/scripts/start.sh
+        - name: order-bot-log
+          hostPath:
+            path: /apps/RunningServer/logs/order-bot
+      containers:
+        - name: order-bot
+          image: cuongpct109/order-bot-base:latest
+          imagePullPolicy: IfNotPresent
+          tty: true
+          volumeMounts:
+            - name: order-bot-build
+              mountPath: /usr/src/order-bot
+            - name: order-bot-script
+              mountPath: /usr/src/order-bot/start.sh
+            - name: order-bot-log
+              mountPath: /home/offshorevn/logs/order-bot
+          resources:
+            limits:
+              memory: "5000Mi"
+              cpu: "3000m"
