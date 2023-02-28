@@ -20,32 +20,36 @@ spec:
       volumes:
         - name: app
           hostPath:
-            path: /apps/RunningServer/Source/frontend
-      initContainers:
-        - name: start-build
-          image: node:16.18.1
-          command: ["ls", "/app"]
-          volumeMounts:
-            - name: app
-              mountPath: /app
+            path: /app/cuong/RunningServer/Source/frontend
+      # initContainers:
+      #   - name: start-build
+      #     tty: true
+      #     image: node:16.18.1
+      #     command: ["cd", "/app", &&, "yarn", "/app", "install"]
+      #     volumeMounts:
+      #       - name: app
+      #         mountPath: /app
       containers:
         - name: frontend
           tty: true
-          image: cuongpct109/frontend:dealing
-          livenessProbe:
-            httpGet:
-              path: /
-              port: liveness-port
-            initialDelaySeconds: 120
-            periodSeconds: 1
-          ports:
-            - name: liveness-port
-              containerPort: 3000
+          image: node:16.18.1
+          workingDir: /app
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: liveness-port
+          #   initialDelaySeconds: 120
+          #   periodSeconds: 1
+          # ports:
+          #   - name: liveness-port
+          #     containerPort: 3000
           volumeMounts:
             - name: app
               mountPath: /app
-              readOnly: true
-          resources:
-            limits:
-              memory: "200Mi"
-              cpu: "100m"
+              # readOnly: true
+          command: ["yarn"]
+          args: ["install"]
+          # resources:
+          #   limits:
+          #     memory: "200Mi"
+          #     cpu: "100m"
