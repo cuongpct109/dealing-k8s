@@ -21,6 +21,13 @@ spec:
         - name: app
           hostPath:
             path: /apps/RunningServer/Source/frontend
+      initContainers:
+        - name: start-build
+          image: node:16.18.1
+          command: ["yarn", "install"]
+          volumeMounts:
+            - name: app
+              mountPath: /app
       containers:
         - name: frontend
           tty: true
