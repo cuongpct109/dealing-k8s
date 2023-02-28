@@ -16,9 +16,9 @@ spec:
         version: "1"
     spec:
       volumes:
-        - name: script
-          hostPath:
-            path: /apps/RunningServer/Source/dbs/rocketmq/scripts/runbroker-customize.sh
+        #   - name: script
+        #     hostPath:
+        #       path: /apps/RunningServer/Source/dbs/rocketmq/scripts/runbroker-customize.sh
         - name: log
           hostPath:
             path: /apps/RunningServer/Source/dbs/rocketmq/data/broker-master/logs
@@ -36,9 +36,9 @@ spec:
             - containerPort: 10909
             - containerPort: 10911
           volumeMounts:
-            - name: script
-              mountPath: /opt/rocketmq-4.9.4/bin/runbroker.sh
-              readOnly: true
+            # - name: script
+            #   mountPath: /opt/rocketmq-4.9.4/bin/runbroker.sh
+            #   readOnly: true
             - name: log
               mountPath: /opt/logs
             - name: store

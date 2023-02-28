@@ -16,9 +16,9 @@ spec:
         version: "1"
     spec:
       volumes:
-        - name: script
-          hostPath:
-            path: /apps/RunningServer/Source/dbs/rocketmq/scripts/runserver-customize.sh
+        # - name: script
+        #   hostPath:
+        #     path: /apps/RunningServer/Source/dbs/rocketmq/scripts/runserver-customize.sh
         - name: log
           hostPath:
             path: /apps/RunningServer/Source/dbs/rocketmq/data/namesrv/logs
@@ -32,9 +32,9 @@ spec:
           ports:
             - containerPort: 9876
           volumeMounts:
-            - name: script
-              mountPath: /opt/rocketmq-4.9.4/bin/runserver.sh
-              readOnly: true
+            # - name: script
+            #   mountPath: /opt/rocketmq-4.9.4/bin/runserver.sh
+            #   readOnly: true
             - name: log
               mountPath: /opt/logs
             - name: store
