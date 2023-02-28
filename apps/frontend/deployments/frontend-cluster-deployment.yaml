@@ -20,7 +20,7 @@ spec:
       volumes:
         - name: app
           hostPath:
-            path: /app/cuong/RunningServer/Source/frontend
+            path: /apps/RunningServer/Source/frontend
       # initContainers:
       #   - name: start-build
       #     tty: true
