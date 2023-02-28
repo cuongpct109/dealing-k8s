@@ -24,7 +24,7 @@ spec:
       initContainers:
         - name: start-build
           image: node:16.18.1
-          command: ["yarn", "install"]
+          command: ["yarn", "/app", "install"]
           volumeMounts:
             - name: app
               mountPath: /app
