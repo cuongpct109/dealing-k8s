@@ -21,18 +21,30 @@ spec:
         - name: app
           hostPath:
             path: /apps/RunningServer/Source/frontend
-      # initContainers:
-      #   - name: start-build
-      #     tty: true
-      #     image: node:16.18.1
-      #     command: ["cd", "/app", &&, "yarn", "/app", "install"]
-      #     volumeMounts:
-      #       - name: app
-      #         mountPath: /app
+      initContainers:
+        - name: start
+          tty: true
+          image: node:16.18.1
+          workingDir: /app
+          restartPolicy: never
+          command: ["yarn"]
+          args: ["install"]
+          volumeMounts:
+            - name: app
+              mountPath: /app
+        - name: build
+          image: node:16.18.1
+          workingDir: /app
+          restartPolicy: never
+          command: ["yarn"]
+          args: ["build"]
+          volumeMounts:
+            - name: app
+              mountPath: /app
       containers:
         - name: frontend
           tty: true
-          image: cuongpct109/frontend:init
+          image: cuongpct109/frontend:dealing
           restartPolicy: OnFailure
           # livenessProbe:
           #   httpGet:
@@ -46,9 +58,8 @@ spec:
           volumeMounts:
             - name: app
               mountPath: /app
-              # readOnly: true
-
-          # resources:
-          #   limits:
-          #     memory: "200Mi"
-          #     cpu: "100m"
+              readOnly: true
+          resources:
+            limits:
+              memory: "200Mi"
+              cpu: "100m"
