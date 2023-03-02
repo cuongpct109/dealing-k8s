@@ -21,23 +21,28 @@ spec:
         - name: bb
           hostPath:
             path: /apps/RunningServer/Source/bb
-        - name: bb-script
+        - name: common
           hostPath:
-            path: /apps/RunningServer/Source/bb/scripts/start-order.sh
-        - name: bb-log
-          hostPath:
-            path: /apps/RunningServer/logs/bb
+            path: /apps/RunningServer/Source/common
+        # - name: bb-script
+        #   hostPath:
+        #     path: /apps/RunningServer/Source/bb/scripts/start-order.sh
+        # - name: bb-log
+        #   hostPath:
+        #     path: /apps/RunningServer/logs/bb
       initContainers:
         - name: jar
           tty: true
           image: cuongpct109/bb-base:init
           workingDir: /usr/src/bb
           restartPolicy: never
-          command: ["gradle"]
-          args: ["task", "jar"]
+          command: ["ls"]
+          args: ["/usr/src/"]
           volumeMounts:
             - name: bb
               mountPath: /usr/src/bb
+            - name: common
+              mountPath: /usr/src/common
         - name: build
           image: cuongpct109/bb-base:init
           workingDir: /usr/src/bb
@@ -47,6 +52,8 @@ spec:
           volumeMounts:
             - name: bb
               mountPath: /usr/src/bb
+            - name: common
+              mountPath: /usr/src/common
       containers:
         - name: bb
           image: cuongpct109/bb-base:start
