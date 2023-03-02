@@ -18,27 +18,44 @@ spec:
         version: "1"
     spec:
       volumes:
-        - name: bb-build
+        - name: bb
           hostPath:
-            path: /apps/RunningServer/Source/bb/build
+            path: /apps/RunningServer/Source/bb
         - name: bb-script
           hostPath:
             path: /apps/RunningServer/Source/bb/scripts/start-order.sh
         - name: bb-log
           hostPath:
             path: /apps/RunningServer/logs/bb
+      initContainers:
+        - name: jar
+          tty: true
+          image: cuongpct109/bb-base:init
+          workingDir: /usr/src/bb
+          restartPolicy: never
+          command: ["gradle"]
+          args: ["task", "jar"]
+          volumeMounts:
+            - name: bb
+              mountPath: /usr/src/bb
+        - name: build
+          image: cuongpct109/bb-base:init
+          workingDir: /usr/src/bb
+          restartPolicy: never
+          command: ["gradle"]
+          args: ["task", "copyJars"]
+          volumeMounts:
+            - name: bb
+              mountPath: /usr/src/bb
       containers:
         - name: bb
-          image: cuongpct109/bb-base:latest
+          image: cuongpct109/bb-base:start
           imagePullPolicy: IfNotPresent
           tty: true
           volumeMounts:
-            - name: bb-build
+            - name: bb
               mountPath: /usr/src/bb
-            - name: bb-script
-              mountPath: /usr/src/bb/start.sh
-            - name: bb-log
-              mountPath: /home/offshorevn/logs/bb
+          workingDir: /usr/src/bb/build
           resources:
             limits:
               memory: "2000Mi"
