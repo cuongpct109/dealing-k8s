@@ -63,7 +63,7 @@ spec:
             - name: bb
               mountPath: /usr/src/bb
           command: ["sh"]
-          args: ["-c", "/usr/src/bb/build"]
+          args: ["-c", "/usr/src/bb/build/start.sh"]
           resources:
             limits:
               memory: "2000Mi"
