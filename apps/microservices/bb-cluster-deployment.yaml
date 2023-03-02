@@ -67,6 +67,9 @@ spec:
               mountPath: /usr/src/common
       containers:
         - name: bb
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
           image: cuongpct109/bb-base:start
           imagePullPolicy: IfNotPresent
           tty: true
