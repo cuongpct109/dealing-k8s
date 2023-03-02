@@ -54,17 +54,6 @@ spec:
               mountPath: /usr/src/bb
             - name: common
               mountPath: /usr/src/common
-        - name: copy-start
-          image: cuongpct109/bb-base:init
-          workingDir: /usr/src/bb
-          restartPolicy: never
-          command: ["cp"]
-          args: ["/usr/src/bb/scripts/start.sh", "/usr/src/bb/build/start.sh"]
-          volumeMounts:
-            - name: bb
-              mountPath: /usr/src/bb
-            - name: common
-              mountPath: /usr/src/common
       containers:
         - name: bb
           securityContext:
@@ -76,7 +65,7 @@ spec:
             - name: bb
               mountPath: /usr/src/bb
           command: ["sh"]
-          args: ["-c", "/usr/src/bb/build/start.sh"]
+          args: ["-c", "/usr/src/bb/scripts/start-k8s.sh"]
           resources:
             limits:
               memory: "2000Mi"
