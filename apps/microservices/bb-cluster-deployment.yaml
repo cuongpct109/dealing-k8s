@@ -72,8 +72,8 @@ spec:
             - name: bb
               mountPath: /usr/src/bb/build
           workingDir: /usr/src/bb/build
-          command: ["sh"]
-          args: ["start.sh"]
+          command: ["pwd"]
+          #args: ["start.sh"]
           resources:
             limits:
               memory: "2000Mi"
