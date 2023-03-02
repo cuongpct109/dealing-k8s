@@ -37,7 +37,7 @@ spec:
           workingDir: /usr/src/bb
           restartPolicy: never
           command: ["ls"]
-          args: ["/usr/src/"]
+          args: ["/usr/src/common"]
           volumeMounts:
             - name: bb
               mountPath: /usr/src/bb
