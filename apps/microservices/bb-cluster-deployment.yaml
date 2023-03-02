@@ -30,7 +30,7 @@ spec:
         # - name: bb-log
         #   hostPath:
         #     path: /apps/RunningServer/logs/bb
-        # initContainers:
+      initContainers:
         - name: jar
           tty: true
           image: cuongpct109/bb-base:init
