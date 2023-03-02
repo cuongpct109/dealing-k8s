@@ -68,7 +68,7 @@ spec:
       containers:
         - name: bb
           securityContext:
-            runAsUser: 0
+            privileged: true
           image: cuongpct109/bb-base:start
           imagePullPolicy: IfNotPresent
           tty: true
