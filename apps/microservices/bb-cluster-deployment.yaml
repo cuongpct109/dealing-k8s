@@ -70,10 +70,9 @@ spec:
           tty: true
           volumeMounts:
             - name: bb
-              mountPath: /usr/src/bb/build
-          workingDir: /usr/src/bb/build
+              mountPath: /usr/src/bb
           command: ["sh"]
-          args: ["start.sh"]
+          args: ["build/start.sh"]
           resources:
             limits:
               memory: "2000Mi"
