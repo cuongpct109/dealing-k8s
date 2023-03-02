@@ -71,8 +71,8 @@ spec:
           volumeMounts:
             - name: bb
               mountPath: /usr/src/bb
-          command: ["sh"]
-          args: ["build/start.sh"]
+          command: ["ls"]
+          args: ["-lah"]
           resources:
             limits:
               memory: "2000Mi"
