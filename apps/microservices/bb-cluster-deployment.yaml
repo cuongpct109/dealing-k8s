@@ -36,8 +36,8 @@ spec:
           image: cuongpct109/bb-base:init
           workingDir: /usr/src/bb
           restartPolicy: never
-          command: ["ls"]
-          args: ["/usr/src/common"]
+          command: ["gradle"]
+          args: ["task", "jar"]
           volumeMounts:
             - name: bb
               mountPath: /usr/src/bb
@@ -63,6 +63,8 @@ spec:
             - name: bb
               mountPath: /usr/src/bb
           workingDir: /usr/src/bb/build
+          command: ["sh"]
+          args: ["-c", "start.sh"]
           resources:
             limits:
               memory: "2000Mi"
