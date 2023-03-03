@@ -38,13 +38,7 @@ spec:
           workingDir: /usr/src/bb
           restartPolicy: never
           command: ["gradle"]
-          args:
-            [
-              "task",
-              "-Dorg.gradle.java.home=/usr/local/bin/java",
-              "jar",
-              "--no-daemon",
-            ]
+          args: ["task", "jar", "--no-daemon"]
           volumeMounts:
             - name: bb
               mountPath: /usr/src/bb
@@ -56,13 +50,7 @@ spec:
           workingDir: /usr/src/bb
           restartPolicy: never
           command: ["gradle"]
-          args:
-            [
-              "task",
-              "-Dorg.gradle.java.home=/usr/local/bin/java",
-              "copyJars",
-              "--no-daemon",
-            ]
+          args: ["task", "copyJars", "--no-daemon"]
           volumeMounts:
             - name: bb
               mountPath: /usr/src/bb
