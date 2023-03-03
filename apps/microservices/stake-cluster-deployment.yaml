@@ -54,7 +54,7 @@ spec:
             - name: common
               mountPath: /usr/src/common
         - name: copy-start
-          image: cuongpct109/stake-base:init
+          image: cuongpct109/java-gradle:min
           imagePullPolicy: IfNotPresent
           workingDir: /usr/src/stake
           restartPolicy: never
