@@ -5,7 +5,10 @@ metadata:
   namespace: app
 spec:
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
   replicas: 1
   selector:
     matchLabels:
@@ -18,27 +21,63 @@ spec:
         version: "1"
     spec:
       volumes:
-        - name: account-build
+        - name: account
           hostPath:
-            path: /apps/RunningServer/Source/account/build
-        - name: account-script
+            path: /apps/RunningServer/Source/account
+        - name: common
           hostPath:
-            path: /apps/RunningServer/Source/account/scripts/start.sh
-        - name: account-log
-          hostPath:
-            path: /apps/RunningServer/logs/account
+            path: /apps/RunningServer/Source/common
+      initContainers:
+        - name: jar
+          tty: true
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: Always
+          workingDir: /usr/src/account
+          restartPolicy: never
+          command: ["gradle"]
+          args: ["task", "jar", "--no-daemon"]
+          volumeMounts:
+            - name: account
+              mountPath: /usr/src/account
+            - name: common
+              mountPath: /usr/src/common
+        - name: build
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: IfNotPresent
+          workingDir: /usr/src/account
+          restartPolicy: never
+          command: ["gradle"]
+          args: ["task", "copyJars", "--no-daemon"]
+          volumeMounts:
+            - name: account
+              mountPath: /usr/src/account
+            - name: common
+              mountPath: /usr/src/common
+        - name: copy-start
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: IfNotPresent
+          workingDir: /usr/src/account
+          restartPolicy: never
+          command: ["cp"]
+          args:
+            [
+              "/usr/src/account/scripts/start.sh",
+              "/usr/src/account/build/start.sh",
+            ]
+          volumeMounts:
+            - name: account
+              mountPath: /usr/src/account
       containers:
         - name: account
           image: cuongpct109/account-base:latest
           imagePullPolicy: IfNotPresent
           tty: true
           volumeMounts:
-            - name: account-build
+            - name: account
               mountPath: /usr/src/account
-            - name: account-script
-              mountPath: /usr/src/account/start.sh
-            - name: account-log
-              mountPath: /home/offshorevn/logs/account
+          workingDir: /usr/src/account/build
+          command: ["bash"]
+          args: ["start.sh"]
           resources:
             limits:
               memory: "1000Mi"
