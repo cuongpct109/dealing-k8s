@@ -37,7 +37,7 @@ spec:
           workingDir: /usr/src/bb
           restartPolicy: never
           command: ["gradle"]
-          args: ["task", "jar"]
+          args: ["task", "jar", "--no-daemon"]
           volumeMounts:
             - name: bb
               mountPath: /usr/src/bb
@@ -48,7 +48,7 @@ spec:
           workingDir: /usr/src/bb
           restartPolicy: never
           command: ["gradle"]
-          args: ["task", "copyJars"]
+          args: ["task", "copyJars", "--no-daemon"]
           volumeMounts:
             - name: bb
               mountPath: /usr/src/bb
