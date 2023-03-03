@@ -76,15 +76,15 @@ spec:
         - name: hibtc-web
           image: cuongpct109/hibtc-web-base:latest
           imagePullPolicy: IfNotPresent
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: liveness-port
-          #   initialDelaySeconds: 120
-          #   periodSeconds: 30
-          # ports:
-          #   - name: liveness-port
-          #     containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /
+              port: liveness-port
+            initialDelaySeconds: 120
+            periodSeconds: 30
+          ports:
+            - name: liveness-port
+              containerPort: 8080
           volumeMounts:
             - name: hibtc-web-root
               mountPath: /usr/local/tomcat/webapps/ROOT

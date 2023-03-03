@@ -5,7 +5,7 @@ metadata:
   namespace: api
 spec:
   selector:
-    component: hibtc-web-socket
+    app: hibtc-web-socket
   type: NodePort
   ports:
     - port: 8082
