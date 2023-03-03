@@ -23,37 +23,71 @@ spec:
         version: "1"
     spec:
       volumes:
-        - name: hibtc-web-storage
+        - name: hibtc-web
+          hostPath:
+            path: /apps/RunningServer/Source/hibtc-web
+        - name: hibtc-web-root
           hostPath:
             path: /apps/RunningServer/Source/hibtc-web/build/libs/hibtc-web-0.0.1-SNAPSHOT/ROOT
-        - name: hibtc-web-log
+        - name: common
           hostPath:
-            path: /apps/RunningServer/logs/hibtc-web/apps
-        - name: hibtc-web-others-log
-          hostPath:
-            path: /apps/RunningServer/logs/hibtc-web/others
+            path: /apps/RunningServer/Source/common
+      initContainers:
+        - name: war
+          tty: true
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: Always
+          workingDir: /usr/src/hibtc-web
+          restartPolicy: never
+          command: ["gradle"]
+          args: ["task", "war", "--no-daemon"]
+          volumeMounts:
+            - name: hibtc-web
+              mountPath: /usr/src/hibtc-web
+            - name: common
+              mountPath: /usr/src/common
+        - name: folder-setup
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: IfNotPresent
+          workingDir: /usr/src/hibtc-web
+          restartPolicy: never
+          command: ["mkdir"]
+          args: ["-p", "build/libs/hibtc-web-0.0.1-SNAPSHOT/ROOT"]
+          volumeMounts:
+            - name: hibtc-web
+              mountPath: /usr/src/hibtc-web
+        - name: unzip
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: IfNotPresent
+          workingDir: /usr/src/hibtc-web
+          restartPolicy: never
+          command: ["unzip"]
+          args:
+            [
+              "-o",
+              "build/libs/hibtc-web-0.0.1-SNAPSHOT.war",
+              "-d",
+              "build/libs/hibtc-web-0.0.1-SNAPSHOT/ROOT",
+            ]
+          volumeMounts:
+            - name: hibtc-web
+              mountPath: /usr/src/hibtc-web
       containers:
         - name: hibtc-web
           image: cuongpct109/hibtc-web-base:latest
           imagePullPolicy: IfNotPresent
-          livenessProbe:
-            httpGet:
-              path: /
-              port: liveness-port
-            initialDelaySeconds: 120
-            periodSeconds: 30
-          ports:
-            - name: liveness-port
-              containerPort: 8080
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: liveness-port
+          #   initialDelaySeconds: 120
+          #   periodSeconds: 30
+          # ports:
+          #   - name: liveness-port
+          #     containerPort: 8080
           volumeMounts:
-            - name: hibtc-web-storage
+            - name: hibtc-web-root
               mountPath: /usr/local/tomcat/webapps/ROOT
-            - name: hibtc-web-log
-              mountPath: /usr/local/tomcat/hibtcLogs
-            - name: hibtc-web-others-log
-              mountPath: /usr/local/tomcat/logs
           resources:
             requests:
-              memory: "600Mi"
-            limits:
               memory: "600Mi"
