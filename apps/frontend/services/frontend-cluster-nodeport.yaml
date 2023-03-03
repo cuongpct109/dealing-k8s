@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hibtc-web-cluster-nodeport
+  name: frontend-cluster-nodeport
   namespace: api
 spec:
   selector:
-    app: hibtc-web
+    app: frontend
   type: NodePort
   ports:
-    - port: 8081
-      targetPort: 8080
-      nodePort: 30001
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30003
       protocol: TCP
