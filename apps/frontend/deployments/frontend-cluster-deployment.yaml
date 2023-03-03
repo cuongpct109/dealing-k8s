@@ -21,6 +21,9 @@ spec:
         - name: app
           hostPath:
             path: /apps/RunningServer/Source/frontend
+        - name: env.example
+          configMap:
+            name: env.example
       initContainers:
         - name: start
           tty: true
@@ -41,20 +44,23 @@ spec:
           volumeMounts:
             - name: app
               mountPath: /app
+            - name: env.example
+              mountPath: /app
+              subPath: .env.example
       containers:
         - name: frontend
           tty: true
           image: cuongpct109/frontend:dealing
           restartPolicy: OnFailure
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: liveness-port
-          #   initialDelaySeconds: 120
-          #   periodSeconds: 1
-          # ports:
-          #   - name: liveness-port
-          #     containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /
+              port: liveness-port
+            initialDelaySeconds: 120
+            periodSeconds: 1
+          ports:
+            - name: liveness-port
+              containerPort: 3000
           volumeMounts:
             - name: app
               mountPath: /app
