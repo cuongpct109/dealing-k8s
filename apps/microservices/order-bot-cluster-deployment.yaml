@@ -79,5 +79,5 @@ spec:
           args: ["start.sh"]
           resources:
             limits:
-              memory: "3000Mi"
+              memory: "5000Mi"
               cpu: "3000m"
