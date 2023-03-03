@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: news-cluster-deployment
+  namespace: app
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: news
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: news
+        version: "1"
+    spec:
+      volumes:
+        - name: news
+          hostPath:
+            path: /apps/RunningServer/Source/news
+        - name: common
+          hostPath:
+            path: /apps/RunningServer/Source/common
+      initContainers:
+        - name: jar
+          tty: true
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: Always
+          workingDir: /usr/src/news
+          restartPolicy: never
+          command: ["gradle"]
+          args: ["task", "jar"]
+          volumeMounts:
+            - name: news
+              mountPath: /usr/src/news
+            - name: common
+              mountPath: /usr/src/common
+        - name: build
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: IfNotPresent
+          workingDir: /usr/src/news
+          restartPolicy: never
+          command: ["gradle"]
+          args: ["task", "copyJars"]
+          volumeMounts:
+            - name: news
+              mountPath: /usr/src/news
+            - name: common
+              mountPath: /usr/src/common
+        - name: copy-start
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: IfNotPresent
+          workingDir: /usr/src/news
+          restartPolicy: never
+          command: ["cp"]
+          args:
+            ["/usr/src/news/scripts/start.sh", "/usr/src/news/build/start.sh"]
+          volumeMounts:
+            - name: news
+              mountPath: /usr/src/news
+      containers:
+        - name: news
+          image: cuongpct109/news-base:latest
+          imagePullPolicy: IfNotPresent
+          tty: true
+          volumeMounts:
+            - name: news
+              mountPath: /usr/src/news
+          workingDir: /usr/src/news/build
+          command: ["bash"]
+          args: ["start.sh"]
+          resources:
+            limits:
+              memory: "2000Mi"
+              cpu: "200m"
