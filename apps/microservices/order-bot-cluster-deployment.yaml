@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-bot-cluster-deployment
+  namespace: app
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-bot
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: order-bot
+        version: "1"
+    spec:
+      volumes:
+        - name: order-bot
+          hostPath:
+            path: /apps/RunningServer/Source/order-bot
+        - name: common
+          hostPath:
+            path: /apps/RunningServer/Source//usr/src/common
+      initContainers:
+        - name: jar
+          tty: true
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: Always
+          workingDir: /usr/src/order-bot
+          restartPolicy: never
+          command: ["gradle"]
+          args: ["task", "jar", "--no-daemon"]
+          volumeMounts:
+            - name: order-bot
+              mountPath: /usr/src/order-bot
+            - name: common
+              mountPath: /usr/src/common
+        - name: build
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: Always
+          workingDir: /usr/src/order-bot
+          restartPolicy: never
+          command: ["gradle"]
+          args: ["task", "copyJars", "--no-daemon"]
+          volumeMounts:
+            - name: order-bot
+              mountPath: /usr/src/order-bot
+            - name: common
+              mountPath: /usr/src/common
+        - name: copy-start
+          image: cuongpct109/java-gradle:min
+          workingDir: /usr/src/order-bot
+          restartPolicy: never
+          command: ["cp"]
+          args:
+            [
+              "/usr/src/order-bot/scripts/start.sh",
+              "/usr/src/order-bot/build/start.sh",
+            ]
+          volumeMounts:
+            - name: order-bot
+              mountPath: /usr/src/order-bot
+      containers:
+        - name: order-bot
+          image: cuongpct109/order-bot-base:latest
+          imagePullPolicy: IfNotPresent
+          tty: true
+          volumeMounts:
+            - name: order-bot
+              mountPath: /usr/src/order-bot
+          workingDir: /usr/src/order-bot/build
+          command: ["bash"]
+          args: ["start.sh"]
+          resources:
+            limits:
+              memory: "3000Mi"
+              cpu: "3000m"
