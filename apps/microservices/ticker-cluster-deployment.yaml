@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticker-cluster-deployment
+  namespace: app
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticker
+      version: "1"
+  template:
+    metadata:
+      labels:
+        app: ticker
+        version: "1"
+    spec:
+      volumes:
+        - name: ticker
+          hostPath:
+            path: /apps/RunningServer/Source/ticker
+        - name: common
+          hostPath:
+            path: /apps/RunningServer/Source/common
+      initContainers:
+        - name: jar
+          tty: true
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: Always
+          workingDir: /usr/src/ticker
+          restartPolicy: never
+          command: ["gradle"]
+          args: ["task", "jar", "--no-daemon"]
+          volumeMounts:
+            - name: ticker
+              mountPath: /usr/src/ticker
+            - name: common
+              mountPath: /usr/src/common
+        - name: build
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: IfNotPresent
+          workingDir: /usr/src/ticker
+          restartPolicy: never
+          command: ["gradle"]
+          args: ["task", "copyJars", "--no-daemon"]
+          volumeMounts:
+            - name: ticker
+              mountPath: /usr/src/ticker
+            - name: common
+              mountPath: /usr/src/common
+        - name: copy-start
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: IfNotPresent
+          workingDir: /usr/src/ticker
+          restartPolicy: never
+          command: ["cp"]
+          args:
+            [
+              "/usr/src/ticker/scripts/start.sh",
+              "/usr/src/ticker/build/start.sh",
+            ]
+          volumeMounts:
+            - name: ticker
+              mountPath: /usr/src/ticker
+      containers:
+        - name: ticker
+          image: cuongpct109/ticker-base:latest
+          imagePullPolicy: IfNotPresent
+          tty: true
+          volumeMounts:
+            - name: ticker
+              mountPath: /usr/src/ticker
+          workingDir: /usr/src/ticker/build
+          command: ["bash"]
+          args: ["start.sh"]
+          resources:
+            requests:
+              memory: "900Mi"
+              cpu: "35m"
+            limits:
+              memory: "1000Mi"
+              cpu: "350m"
