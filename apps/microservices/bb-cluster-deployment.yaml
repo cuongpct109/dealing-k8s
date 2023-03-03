@@ -33,7 +33,7 @@ spec:
       initContainers:
         - name: jar
           tty: true
-          image: java-gradle:min
+          image: cuongpct109/java-gradle:min
           workingDir: /usr/src/bb
           restartPolicy: never
           command: ["gradle"]
@@ -44,7 +44,7 @@ spec:
             - name: common
               mountPath: /usr/src/common
         - name: build
-          image: java-gradle:min
+          image: cuongpct109/java-gradle:min
           workingDir: /usr/src/bb
           restartPolicy: never
           command: ["gradle"]
