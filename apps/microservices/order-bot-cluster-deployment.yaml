@@ -26,7 +26,7 @@ spec:
             path: /apps/RunningServer/Source/order-bot
         - name: common
           hostPath:
-            path: /apps/RunningServer/Source//usr/src/common
+            path: /apps/RunningServer/Source/common
       initContainers:
         - name: jar
           tty: true
