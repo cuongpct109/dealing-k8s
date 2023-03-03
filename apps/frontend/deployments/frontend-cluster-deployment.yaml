@@ -45,8 +45,8 @@ spec:
             - name: app
               mountPath: /app
             - name: env-example
-              mountPath: /app/.env.example
-              subPath: .env.example
+              mountPath: /app/.env.local
+              subPath: .env.local
       containers:
         - name: frontend
           tty: true
