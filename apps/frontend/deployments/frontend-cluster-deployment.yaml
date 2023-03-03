@@ -44,7 +44,7 @@ spec:
           volumeMounts:
             - name: app
               mountPath: /app
-            - name: env.example
+            - name: env-example
               mountPath: /app
               subPath: .env.example
       containers:
