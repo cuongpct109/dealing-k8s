@@ -45,7 +45,7 @@ spec:
             - name: app
               mountPath: /app
             - name: env-example
-              mountPath: /app
+              mountPath: /app/.env.example
               subPath: .env.example
       containers:
         - name: frontend
