@@ -49,7 +49,7 @@ spec:
         - name: folder-setup
           image: cuongpct109/java-gradle:min
           imagePullPolicy: IfNotPresent
-          workingDir: /usr/src/hibtc-web
+          workingDir: /usr/src/hibtc-web-socket
           restartPolicy: never
           command: ["mkdir"]
           args: ["-p", "build/libs/hibtc-web-socket-0.0.1-SNAPSHOT/ROOT"]
