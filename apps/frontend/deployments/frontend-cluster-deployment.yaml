@@ -23,7 +23,7 @@ spec:
             path: /apps/RunningServer/Source/frontend
         - name: env-example
           configMap:
-            name: env.example
+            name: env-example
       initContainers:
         - name: start
           tty: true
