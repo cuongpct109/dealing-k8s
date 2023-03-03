@@ -1,83 +1,81 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bb-cluster-deployment
+  name: stake-cluster-deployment
   namespace: app
 spec:
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
   replicas: 1
   selector:
     matchLabels:
-      app: bb
+      app: stake
       version: "1"
   template:
     metadata:
       labels:
-        app: bb
+        app: stake
         version: "1"
     spec:
       volumes:
-        - name: bb
+        - name: stake
           hostPath:
-            path: /apps/RunningServer/Source/bb
+            path: /apps/RunningServer/Source/stake
         - name: common
           hostPath:
             path: /apps/RunningServer/Source/common
-        # - name: bb-script
-        #   hostPath:
-        #     path: /apps/RunningServer/Source/bb/scripts/start-order.sh
-        # - name: bb-log
-        #   hostPath:
-        #     path: /apps/RunningServer/logs/bb
       initContainers:
         - name: jar
           tty: true
           image: cuongpct109/java-gradle:min
           imagePullPolicy: Always
-          workingDir: /usr/src/bb
+          workingDir: /usr/src/stake
           restartPolicy: never
           command: ["gradle"]
           args: ["task", "jar", "--no-daemon"]
           volumeMounts:
-            - name: bb
-              mountPath: /usr/src/bb
+            - name: stake
+              mountPath: /usr/src/stake
             - name: common
               mountPath: /usr/src/common
         - name: build
           image: cuongpct109/java-gradle:min
           imagePullPolicy: IfNotPresent
-          workingDir: /usr/src/bb
+          workingDir: /usr/src/stake
           restartPolicy: never
           command: ["gradle"]
           args: ["task", "copyJars", "--no-daemon"]
           volumeMounts:
-            - name: bb
-              mountPath: /usr/src/bb
+            - name: stake
+              mountPath: /usr/src/stake
             - name: common
               mountPath: /usr/src/common
         - name: copy-start
-          image: cuongpct109/java-gradle:min
+          image: cuongpct109/stake-base:init
           imagePullPolicy: IfNotPresent
-          workingDir: /usr/src/bb
+          workingDir: /usr/src/stake
           restartPolicy: never
           command: ["cp"]
-          args: ["/usr/src/bb/scripts/start.sh", "/usr/src/bb/build/start.sh"]
+          args:
+            ["/usr/src/stake/scripts/start.sh", "/usr/src/stake/build/start.sh"]
           volumeMounts:
-            - name: bb
-              mountPath: /usr/src/bb
+            - name: stake
+              mountPath: /usr/src/stake
       containers:
-        - name: bb
-          image: cuongpct109/bb-base:latest
+        - name: stake
+          image: cuongpct109/stake-base:latest
           imagePullPolicy: IfNotPresent
           tty: true
           volumeMounts:
-            - name: bb
-              mountPath: /usr/src/bb
-          workingDir: /usr/src/bb/build
+            - name: stake
+              mountPath: /usr/src/stake
+          workingDir: /usr/src/stake/build
           command: ["bash"]
           args: ["start.sh"]
           resources:
             limits:
-              memory: "2000Mi"
-              cpu: "1000m"
+              memory: "700Mi"
+              cpu: "200m"
