@@ -7,7 +7,7 @@ spec:
   ports:
     - port: 80
       protocol: TCP
-      targetPort: 27917
+      targetPort: 27017
   selector:
     app: mongo
   type: LoadBalancer
