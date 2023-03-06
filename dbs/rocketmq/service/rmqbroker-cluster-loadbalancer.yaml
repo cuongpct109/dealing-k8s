@@ -16,7 +16,6 @@ spec:
   selector:
     app: rmqbroker
   type: LoadBalancer
+  loadBalancerIP: 172.30.0.109
 status:
-  loadBalancer:
-    ingress:
-      - ip: 172.30.0.109
+  loadBalancer: {}
