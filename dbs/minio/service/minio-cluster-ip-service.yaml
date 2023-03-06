@@ -5,12 +5,10 @@ metadata:
   namespace: database
   labels:
     app: minio
-    version: "1"
 spec:
   type: ClusterIP
   selector:
     app: minio
-    version: "1"
   ports:
     - name: tcp-9000
       port: 9000
