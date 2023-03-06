@@ -10,8 +10,6 @@ spec:
       targetPort: 3000
   selector:
     app: frontend
-    cluster: "0"
-    version: "1"
   type: LoadBalancer
 status:
   loadBalancer: {}
