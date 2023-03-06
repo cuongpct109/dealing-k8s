@@ -5,11 +5,11 @@ metadata:
   namespace: database
 spec:
   ports:
-    - name: port_10909
+    - name: port-10909
       port: 10909
       protocol: TCP
       targetPort: 10909
-    - name: port_10911
+    - name: port-10911
       port: 10911
       protocol: TCP
       targetPort: 10911
