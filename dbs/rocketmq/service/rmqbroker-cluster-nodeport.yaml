@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rmqbroker-cluster-nodeport
+  namespace: database
+  labels:
+    app: rmqbroker
+spec:
+  type: NodePort
+  selector:
+    app: rmqbroker
+  ports:
+    - port: 10909
+      targetPort: 10909
+      nodePort: 30909
+      protocol: TCP
+    - port: 10911
+      targetPort: 10911
+      nodePort: 30911
+      protocol: TCP
