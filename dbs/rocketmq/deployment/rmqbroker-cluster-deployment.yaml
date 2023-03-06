@@ -37,7 +37,7 @@ spec:
             - containerPort: 10911
           volumeMounts:
             - name: script
-              mountPath: /opt/rocketmq-4.9.4/bin
+              mountPath: /opt/rocketmq-4.9.4/bin/runbroker.sh
               subPath: runbroker.sh
             - name: log
               mountPath: /opt/logs
