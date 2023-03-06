@@ -11,10 +11,10 @@ data:
 
     brokerId=0
 
-    namesrvAddr=172.30.0.108:9876
+    namesrvAddr=10.10.32.73:9876
 
-    brokerIP1=172.30.0.109
-    brokerIP2=172.30.0.109
+    brokerIP1=10.10.32.73
+    brokerIP2=10.10.32.73
 
     defaultTopicQueueNums=4
 
