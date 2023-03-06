@@ -1,38 +1,38 @@
-- apiVersion: v1
-  kind: ConfigMap
-  metadata:
-    name: broker-properties
-    namespace: default
-  data:
-    broker.properties: |+
-      brokerClusterName=rocketmq-cluster
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: broker-properties
+  namespace: database
+data:
+  broker.properties: |+
+    brokerClusterName=rocketmq-cluster
 
-      brokerName=broker-a
+    brokerName=broker-a
 
-      brokerId=0
+    brokerId=0
 
-      namesrvAddr=172.30.0.108:9876
+    namesrvAddr=172.30.0.108:9876
 
-      brokerIP1=172.30.0.109
-      brokerIP2=172.30.0.109
+    brokerIP1=172.30.0.109
+    brokerIP2=172.30.0.109
 
-      defaultTopicQueueNums=4
+    defaultTopicQueueNums=4
 
-      listenPort=10911
+    listenPort=10911
 
-      deleteWhen=04
+    deleteWhen=04
 
-      fileReservedTime=120
+    fileReservedTime=120
 
-      mapedFileSizeCommitLog=1073741824
+    mapedFileSizeCommitLog=1073741824
 
-      mapedFileSizeConsumeQueue=300000
+    mapedFileSizeConsumeQueue=300000
 
-      diskMaxUsedSpaceRatio=99
+    diskMaxUsedSpaceRatio=99
 
-      maxMessageSize=65536
+    maxMessageSize=65536
 
-      brokerRole=ASYNC_MASTER
+    brokerRole=ASYNC_MASTER
 
-      flushDiskType=ASYNC_FLUSH
+    flushDiskType=ASYNC_FLUSH
 
