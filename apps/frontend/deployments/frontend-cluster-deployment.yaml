@@ -25,7 +25,6 @@ spec:
           tty: true
           image: node:16.18.1
           workingDir: /app
-          restartPolicy: never
           command: ["yarn"]
           args: ["install"]
           volumeMounts:
@@ -34,7 +33,6 @@ spec:
         - name: build
           image: node:16.18.1
           workingDir: /app
-          restartPolicy: never
           command: ["yarn"]
           args: ["build"]
           volumeMounts:
@@ -47,7 +45,6 @@ spec:
         - name: frontend
           tty: true
           image: cuongpct109/frontend:dealing
-          restartPolicy: OnFailure
           livenessProbe:
             httpGet:
               path: /
