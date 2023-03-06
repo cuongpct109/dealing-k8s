@@ -38,7 +38,6 @@ spec:
           image: cuongpct109/java-gradle:min
           imagePullPolicy: Always
           workingDir: /usr/src/hibtc-web-socket
-          restartPolicy: never
           command: ["gradle"]
           args: ["task", "war", "--no-daemon"]
           volumeMounts:
@@ -50,7 +49,6 @@ spec:
           image: cuongpct109/java-gradle:min
           imagePullPolicy: IfNotPresent
           workingDir: /usr/src/hibtc-web-socket
-          restartPolicy: never
           command: ["mkdir"]
           args: ["-p", "build/libs/hibtc-web-socket-0.0.1-SNAPSHOT/ROOT"]
           volumeMounts:
@@ -60,7 +58,6 @@ spec:
           image: cuongpct109/java-gradle:min
           imagePullPolicy: IfNotPresent
           workingDir: /usr/src/hibtc-web-socket
-          restartPolicy: never
           command: ["unzip"]
           args:
             [
