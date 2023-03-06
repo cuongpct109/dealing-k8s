@@ -33,7 +33,6 @@ spec:
           image: cuongpct109/java-gradle:min
           imagePullPolicy: Always
           workingDir: /usr/src/ticker
-          restartPolicy: never
           command: ["gradle"]
           args: ["task", "jar", "--no-daemon"]
           volumeMounts:
@@ -45,7 +44,6 @@ spec:
           image: cuongpct109/java-gradle:min
           imagePullPolicy: IfNotPresent
           workingDir: /usr/src/ticker
-          restartPolicy: never
           command: ["gradle"]
           args: ["task", "copyJars", "--no-daemon"]
           volumeMounts:
@@ -57,7 +55,6 @@ spec:
           image: cuongpct109/java-gradle:min
           imagePullPolicy: IfNotPresent
           workingDir: /usr/src/ticker
-          restartPolicy: never
           command: ["cp"]
           args:
             [
