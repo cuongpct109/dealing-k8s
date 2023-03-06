@@ -11,7 +11,6 @@ spec:
   selector:
     app: rmqnamesrv
   type: LoadBalancer
+  loadBalancerIP: 172.30.0.108
 status:
-  loadBalancer:
-    ingress:
-      - ip: 172.30.0.108
+  loadBalancer: {}
