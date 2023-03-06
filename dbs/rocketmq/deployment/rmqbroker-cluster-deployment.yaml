@@ -16,16 +16,13 @@ spec:
         version: "1"
     spec:
       volumes:
-        - name: script
-          configMap:
-            name: runbroker-customize
         - name: log
           hostPath:
             path: /apps/RunningServer/Source/dbs/rocketmq/data/broker-master/logs
         - name: store
           hostPath:
             path: /apps/RunningServer/Source/dbs/rocketmq/data/broker-master/store
-        - name: broker-properties
+        - name: properties
           configMap:
             name: broker-properties
       containers:
@@ -36,13 +33,10 @@ spec:
             - containerPort: 10909
             - containerPort: 10911
           volumeMounts:
-            - name: script
-              mountPath: /opt/rocketmq-4.9.4/bin/runbroker.sh
-              subPath: runbroker.sh
             - name: log
               mountPath: /opt/logs
             - name: store
               mountPath: /opt/store
-            - name: broker-properties
-              mountPath: /opt/conf
+            - name: properties
+              mountPath: /opt/conf/broker.properties
               subPath: broker.properties
