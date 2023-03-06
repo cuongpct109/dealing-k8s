@@ -88,6 +88,6 @@ spec:
           volumeMounts:
             - name: hibtc-web-socket-root
               mountPath: /usr/local/tomcat/webapps/ROOT
-          resources:
-            limits:
-              memory: "600Mi"
+          # resources:
+          #   limits:
+          #     memory: "600Mi"

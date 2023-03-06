@@ -88,6 +88,6 @@ spec:
           volumeMounts:
             - name: hibtc-web-root
               mountPath: /usr/local/tomcat/webapps/ROOT
-          resources:
-            requests:
-              memory: "600Mi"
+          # resources:
+          #   requests:
+          #     memory: "600Mi"

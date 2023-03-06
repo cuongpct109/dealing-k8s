@@ -75,7 +75,7 @@ spec:
           workingDir: /usr/src/news/build
           command: ["bash"]
           args: ["start.sh"]
-          resources:
-            limits:
-              memory: "2000Mi"
-              cpu: "200m"
+          # resources:
+          #   limits:
+          #     memory: "2000Mi"
+          #     cpu: "200m"

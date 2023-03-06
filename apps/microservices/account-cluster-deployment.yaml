@@ -78,7 +78,7 @@ spec:
           workingDir: /usr/src/account/build
           command: ["bash"]
           args: ["start.sh"]
-          resources:
-            limits:
-              memory: "1000Mi"
-              cpu: "300m"
+          # resources:
+          #   limits:
+          #     memory: "1000Mi"
+          #     cpu: "300m"

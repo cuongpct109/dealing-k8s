@@ -77,7 +77,7 @@ spec:
           workingDir: /usr/src/order-bot/build
           command: ["bash"]
           args: ["start.sh"]
-          resources:
-            limits:
-              memory: "5000Mi"
-              cpu: "3000m"
+          # resources:
+          #   limits:
+          #     memory: "5000Mi"
+          #     cpu: "3000m"

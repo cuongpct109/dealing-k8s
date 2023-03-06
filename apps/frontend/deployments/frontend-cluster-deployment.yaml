@@ -65,7 +65,7 @@ spec:
             - name: app
               mountPath: /app
               readOnly: true
-          resources:
-            limits:
-              memory: "200Mi"
-              cpu: "100m"
+          # resources:
+          #   limits:
+          #     memory: "200Mi"
+          #     cpu: "100m"
