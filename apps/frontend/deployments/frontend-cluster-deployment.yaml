@@ -8,14 +8,10 @@ spec:
   selector:
     matchLabels:
       app: frontend
-      cluster: "0"
-      version: "1"
   template:
     metadata:
       labels:
         app: frontend
-        cluster: "0"
-        version: "1"
     spec:
       volumes:
         - name: app
