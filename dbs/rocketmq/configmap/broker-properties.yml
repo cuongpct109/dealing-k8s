@@ -11,10 +11,10 @@ data:
 
     brokerId=0
 
-    namesrvAddr=rmqnamesrv-cluster-loadbalancer.database:9876
+    namesrvAddr=rmqnamesrv-cluster-ip-service.database:9876
 
-    brokerIP1=rmqbroker-cluster-loadbalancer.database
-    brokerIP2=rmqbroker-cluster-loadbalancer.database
+    brokerIP1=rmqbroker-cluster-ip-service.database
+    brokerIP2=rmqbroker-cluster-ip-service.database
 
     defaultTopicQueueNums=4
 
