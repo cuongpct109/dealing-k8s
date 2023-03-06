@@ -65,7 +65,7 @@ spec:
           args:
             [
               "-o",
-              "build/libs/hibtc-web-0.0.1-SNAPSHOT.war",
+              "build/libs/hibtc-web-socket-0.0.1-SNAPSHOT.war",
               "-d",
               "build/libs/hibtc-web-socket-0.0.1-SNAPSHOT/ROOT",
             ]
