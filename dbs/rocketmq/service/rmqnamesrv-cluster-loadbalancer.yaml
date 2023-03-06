@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rmqnamesrv-cluster-loadbalancer
+  namespace: database
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 9876
+  selector:
+    app: rmqnamesrv
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+      - ip: 172.30.0.108

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rmqbroker-cluster-loadbalancer
+  namespace: database
+spec:
+  ports:
+    - name: port_10909
+      port: 10909
+      protocol: TCP
+      targetPort: 10909
+    - name: port_10911
+      port: 10911
+      protocol: TCP
+      targetPort: 10911
+  selector:
+    app: rmqbroker
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+      - ip: 172.30.0.109
