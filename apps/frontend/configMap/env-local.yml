@@ -6,5 +6,5 @@ data:
     URL \r\nNEXT_PUBLIC_WEB_SOCKET_URL=ws://172.30.0.102/wsv1\r\n\r\nNEXT_PUBLIC_SENTRY_DSN=\r\n\r\n#SIMPLEX\r\nNEXT_PUBLIC_SIMPLEX_CHECKOUT_URL=https://checkout.simplexcc.com/payments/new\r\n\r\n"
 kind: ConfigMap
 metadata:
-  name: env-example
+  name: env-local
   namespace: frontend

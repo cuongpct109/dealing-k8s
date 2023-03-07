@@ -19,7 +19,7 @@ spec:
             path: /apps/RunningServer/Source/frontend
         - name: env-example
           configMap:
-            name: env-example
+            name: env
       initContainers:
         - name: start
           tty: true
@@ -38,9 +38,9 @@ spec:
           volumeMounts:
             - name: app
               mountPath: /app
-            - name: env-example
-              mountPath: /app/.env.local
-              subPath: .env.local
+            - name: env
+              mountPath: /app/.env
+              subPath: .env
       containers:
         - name: frontend
           tty: true
