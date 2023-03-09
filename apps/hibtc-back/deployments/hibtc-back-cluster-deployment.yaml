@@ -45,6 +45,8 @@ spec:
           volumeMounts:
             - name: hibtc-web-back
               mountPath: /usr/src/hibtc-web-back
+            - name: common
+              mountPath: /usr/src/common
         - name: xex-back
           tty: true
           image: cuongpct109/java-ant:min
