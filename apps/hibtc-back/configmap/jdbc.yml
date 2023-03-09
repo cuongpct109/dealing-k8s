@@ -11,23 +11,23 @@ data:
     jdbc.idleConnectionTestPeriod=900
     jdbc.maxIdleTime=1800
     jdbc.driverClassName=com.mysql.jdbc.Driver
-    jdbc.url=jdbc:mysql://mysql-cluster-ip-service.database:3306/back?characterEncoding=UTF-8&allowMultiQueries=true
+    jdbc.url=jdbc:mysql://mysql-cluster-ip-service.database:3306/back?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
     jdbc.username=service
     jdbc.password=service
 
-    jdbc.dbweburl=jdbc:mysql://mysql-cluster-ip-service.database:3306/web?characterEncoding=UTF-8&allowMultiQueries=true
+    jdbc.dbweburl=jdbc:mysql://mysql-cluster-ip-service.database:3306/web?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
     jdbc.dbwebusername=service
     jdbc.dbwebpassword=service
 
-    jdbc.otcurl=jdbc:mysql://mysql-cluster-ip-service.database:3306/otc?characterEncoding=UTF-8&allowMultiQueries=true
+    jdbc.otcurl=jdbc:mysql://mysql-cluster-ip-service.database:3306/otc?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
     jdbc.otcusername=service
     jdbc.otcpassword=service
 
-    jdbc.logurl=jdbc:mysql://mysql-cluster-ip-service.database:3306/log?characterEncoding=UTF-8&allowMultiQueries=true
+    jdbc.logurl=jdbc:mysql://mysql-cluster-ip-service.database:3306/log?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
     jdbc.logusername=service
     jdbc.logpassword=service
 
-    jdbc.accounturl=jdbc:mysql://mysql-cluster-ip-service.database:3306/account?characterEncoding=UTF-8&allowMultiQueries=true
+    jdbc.accounturl=jdbc:mysql://mysql-cluster-ip-service.database:3306/account?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
     jdbc.accountusername=service
     jdbc.accountpassword=service
 
