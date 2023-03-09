@@ -17,7 +17,7 @@ spec:
         - name: app
           hostPath:
             path: /apps/RunningServer/Source/frontend
-        - name: env-example
+        - name: env
           configMap:
             name: env
       initContainers:
