@@ -61,7 +61,7 @@ spec:
               mountPath: /usr/src/common
             - name: application-dev
               mountPath: /usr/src/hibtc-web-back/src/main/resources/application-dev.properties
-              # subPath: .env
+              subPath: application-dev.properties
         - name: xex-back
           tty: true
           image: cuongpct109/java-ant:min
