@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rocketmq
+  namespace: admin
+data:
+  RocketMQ.properties: |
+    rocketmq.book.consumer.group = monitor
+    rocketmq.nameServerAddress=rmqnamesrv-cluster-ip-service.database:9876
+    rocketmq.topic = ETH_BTC,LION_BTC

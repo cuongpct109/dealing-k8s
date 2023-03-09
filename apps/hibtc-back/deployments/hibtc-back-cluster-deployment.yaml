@@ -34,6 +34,18 @@ spec:
         - name: hibtc-web-back-webapps
           hostPath:
             path: /apps/RunningServer/Source/hibtc-web-back/build/libs/web
+        - name: jdbc
+          configMap:
+            name: jdbc
+        - name: redis
+          configMap:
+            name: redis
+        - name: rocketmq
+          configMap:
+            name: rocketmq
+        - name: application-dev
+          configMap:
+            name: application-dev
       initContainers:
         - name: hibtc-web-back
           tty: true
@@ -47,6 +59,9 @@ spec:
               mountPath: /usr/src/hibtc-web-back
             - name: common
               mountPath: /usr/src/common
+            - name: application-dev
+              mountPath: /usr/src/hibtc-web-back/src/main/resources/application-dev.properties
+              # subPath: .env
         - name: xex-back
           tty: true
           image: cuongpct109/java-ant:min
@@ -56,6 +71,15 @@ spec:
           volumeMounts:
             - name: xex-back
               mountPath: /usr/src/xex-back
+            - name: jdbc
+              mountPath: /usr/src/xex-back/config/jdbc.properties
+              # subPath: .env
+            - name: redis
+              mountPath: /usr/src/xex-back/config/redis.properties
+              # subPath: .env
+            - name: rocketmq
+              mountPath: /usr/src/xex-back/config/RocketMQ.properties
+              # subPath: .env
         - name: unzip-xex-back
           image: cuongpct109/java-gradle:min
           env:

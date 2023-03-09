@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis
+  namespace: admin
+data:
+  redis.properties: |
+    redisHostMaster=redis-cluster-ip-service.database
+    redisPort=6379
+    timeout=2000
+    password =
+    database=6
+
+    monitor.redis.ip=redis-cluster-ip-service.database
+    monitor.redis.port=6379
+    monitor.redis.timeout=2000
+    monitor.redis.password =
+    monitor.redis.database=6
+
+    config.redis.ip=redis-cluster-ip-service.database
+    config.redis.port=6379
+    config.redis.timeout=2000
+    config.redis.password =
+    config.redis.database=1
+
+    notice.redis.ip=redis-cluster-ip-service.database
+    notice.redis.port=6379
+    notice.redis.timeout=2000
+    notice.redis.password =
+    notice.redis.database=0
+
+    bb.redis.ip=redis-cluster-ip-service.database
+    bb.redis.port=6379
+    bb.redis.timeout=2000
+    bb.redis.password =
+    bb.redis.database=3
+
+    account.redis.ip=redis-cluster-ip-service.database
+    account.redis.port=6379
+    account.redis.timeout=2000
+    account.redis.password =
+    account.redis.database=1
+
+    settings.redis.ip=redis-cluster-ip-service.database
+    settings.redis.port=6379
+    settings.redis.timeout=2000
+    settings.redis.password =
+    settings.redis.database=8
+
+    otc.redis.ip=redis-cluster-ip-service.database
+    otc.redis.port=6379
+    otc.redis.timeout=2000
+    otc.redis.password =
+    otc.redis.database=9
+
+    funds.redis.ip=redis-cluster-ip-service.database
+    funds.redis.port=6379
+    funds.redis.timeout=2000
+    funds.redis.password =
+    funds.redis.database=10
+
+    bbBook.redis.ip=redis-cluster-ip-service.database
+    bbBook.redis.port=6379
+    bbBook.redis.timeout=2000
+    bbBook.redis.password =
+    bbBook.redis.database=2
+
+    activity.redis.ip=redis-cluster-ip-service.database
+    activity.redis.port=6379
+    activity.redis.timeout=2000
+    activity.redis.password =
+    activity.redis.database=4
+
+    mining.redis.ip=redis-cluster-ip-service.database
+    mining.redis.port=6379
+    mining.redis.timeout=2000
+    mining.redis.password =
+    mining.redis.database =10

@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jdbc
+  namespace: admin
+data:
+  jdbc.properties: |
+    jdbc.maxPoolSize=5
+    jdbc.minPoolSize=1
+    jdbc.initialPoolSize=1
+    jdbc.idleConnectionTestPeriod=900
+    jdbc.maxIdleTime=1800
+    jdbc.driverClassName=com.mysql.jdbc.Driver
+    jdbc.url=jdbc:mysql://mysql-cluster-ip-service.database:3306/back?characterEncoding=UTF-8&allowMultiQueries=true
+    jdbc.username=service
+    jdbc.password=service
+
+    jdbc.dbweburl=jdbc:mysql://mysql-cluster-ip-service.database:3306/web?characterEncoding=UTF-8&allowMultiQueries=true
+    jdbc.dbwebusername=service
+    jdbc.dbwebpassword=service
+
+    jdbc.otcurl=jdbc:mysql://mysql-cluster-ip-service.database:3306/otc?characterEncoding=UTF-8&allowMultiQueries=true
+    jdbc.otcusername=service
+    jdbc.otcpassword=service
+
+    jdbc.logurl=jdbc:mysql://mysql-cluster-ip-service.database:3306/log?characterEncoding=UTF-8&allowMultiQueries=true
+    jdbc.logusername=service
+    jdbc.logpassword=service
+
+    jdbc.accounturl=jdbc:mysql://mysql-cluster-ip-service.database:3306/account?characterEncoding=UTF-8&allowMultiQueries=true
+    jdbc.accountusername=service
+    jdbc.accountpassword=service
+
+    jdbc.bburl=jdbc:mysql://mysql-cluster-ip-service.database:3306/bb?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+    jdbc.bbusername=service
+    jdbc.bbpassword=service
+
+    jdbc.fundsurl=jdbc:mysql://mysql-cluster-ip-service.database:3306/funds?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+    jdbc.fundsusername=service
+    jdbc.fundspassword=service
+
+    jdbc.mineurl=jdbc:mysql://mysql-cluster-ip-service.database:3306/mine?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+    jdbc.mineusername=service
+    jdbc.minepassword=service
+
+    jdbc.activityurl=jdbc:mysql://mysql-cluster-ip-service.database:3306/activity?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+    jdbc.activityusername=service
+    jdbc.activitypassword=service
+
+    jdbc.configurl=jdbc:mysql://mysql-cluster-ip-service.database:3306/config?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+    jdbc.configusername=service
+    jdbc.configpassword=service
+
+    jdbc.configPreurl=jdbc:mysql://mysql-cluster-ip-service.database:3306/config?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+    jdbc.configPreusername=service
+    jdbc.configPrepassword=service
+
+    mongo.dbname=btc_log
+    mongo.host=mongo-cluster-ip-service.database
+    mongo.port=27017
+    mongo.username=service
+    mongo.password=service
+    mongo.credentials=${mongo.username}:${mongo.password}@${mongo.dbname}
+    mongo.connectionsPerHost=8
+    mongo.threadsAllowedToBlockForConnectionMultiplier=4
+    mongo.connectTimeout=60000
+    mongo.maxWaitTime=60000
+    mongo.autoConnectRetry=true
+    mongo.socketKeepAlive= true
+    mongo.socketTimeout=60000
+    mongo.slaveOk=true

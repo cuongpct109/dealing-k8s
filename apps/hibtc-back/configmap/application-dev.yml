@@ -1,0 +1,181 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: application-dev
+  namespace: admin
+data:
+  application-dev.properties: |
+    spring.profiles.include=staging-hosts
+
+    #db
+    db.web.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/web?useUnicode=true&characterEncoding=UTF-8
+    db.web.username=service
+    db.web.password=service
+
+    db.otc.dburl=jdbc:mysql://mysql-cluster-ip-service.database:3306/otc?useUnicode=true&characterEncoding=UTF-8
+    db.otc.username=service
+    db.otc.password=service
+
+    db.bb.dburl=jdbc:mysql://mysql-cluster-ip-service.database:3306/bb?useUnicode=true&characterEncoding=UTF-8
+    db.bb.username=service
+    db.bb.password=service
+
+    db.account.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/account?useUnicode=true&characterEncoding=UTF-8
+    db.account.username=service
+    db.account.password=service
+
+    db.chat.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/chat_facet?useUnicode=true&characterEncoding=UTF-8
+    db.chat.username=service
+    db.chat.password=service
+
+    db.mine.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/mine?useUnicode=true&characterEncoding=UTF-8
+    db.mine.username=service
+    db.mine.password=service
+
+    db.activity.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/activity?useUnicode=true&characterEncoding=UTF-8
+    db.activity.username=service
+    db.activity.password=service
+
+    db.config.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/config?useUnicode=true&characterEncoding=UTF-8
+    db.config.username=service
+    db.config.password=service
+
+    #mongodb
+    mongo.dbName=btc_log
+    mongo.host=mongo-cluster-ip-service.database
+    mongo.port=27017
+    mongo.userName=service
+    mongo.password=service
+
+    #redis
+    redis.web.ip=redis-cluster-ip-service.database
+    redis.web.port=6379
+    redis.web.timeout=2000
+    redis.web.password=
+    redis.web.database=0
+
+    redis.account.ip=redis-cluster-ip-service.database
+    redis.account.port=6379
+    redis.account.timeout=2000
+    redis.account.password=
+    redis.account.database=1
+
+    redis.otc.ip=redis-cluster-ip-service.database
+    redis.otc.port=6379
+    redis.otc.timeout=2000
+    redis.otc.password=
+    redis.otc.database=5
+
+    redis.notify.ip=redis-cluster-ip-service.database
+    redis.notify.port=6379
+    redis.notify.timeout=2000
+    redis.notify.password=
+    redis.notify.database=0
+
+    redis.bb.ip=redis-cluster-ip-service.database
+    redis.bb.port=6379
+    redis.bb.timeout=2000
+    redis.bb.password=
+    redis.bb.database=3
+
+    redis.bbHistory.ip=redis-cluster-ip-service.database
+    redis.bbHistory.port=6379
+    redis.bbHistory.timeout=2000
+    redis.bbHistory.password=
+    redis.bbHistory.database=3
+
+    redis.bbBook.ip=redis-cluster-ip-service.database
+    redis.bbBook.port=6379
+    redis.bbBook.timeout=2000
+    redis.bbBook.password=
+    redis.bbBook.database=2
+
+    redis.bbCandle.ip=redis-cluster-ip-service.database
+    redis.bbCandle.port=6379
+    redis.bbCandle.timeout=2000
+    redis.bbCandle.password=
+    redis.bbCandle.database=2
+
+    redis.bbTicker.ip=redis-cluster-ip-service.database
+    redis.bbTicker.port=6379
+    redis.bbTicker.timeout=2000
+    redis.bbTicker.password=
+    redis.bbTicker.database=2
+
+    redis.monitor.ip=redis-cluster-ip-service.database
+    redis.monitor.port=6379
+    redis.monitor.timeout=2000
+    redis.monitor.password=
+    redis.monitor.database=6
+
+    redis.settings.ip=redis-cluster-ip-service.database
+    redis.settings.port=6379
+    redis.settings.timeout=2000
+    redis.settings.password=
+    redis.settings.database=8
+
+    redis.funds.ip=redis-cluster-ip-service.database
+    redis.funds.port=6379
+    redis.funds.timeout=2000
+    redis.funds.password=
+    redis.funds.database=10
+
+    redis.mine.ip=redis-cluster-ip-service.database
+    redis.mine.port=6379
+    redis.mine.timeout=2000
+    redis.mine.password=
+    redis.mine.database=10
+
+    redis.report.ip=redis-cluster-ip-service.database
+    redis.report.port=6379
+    redis.report.timeout=2000
+    redis.report.password=
+    redis.report.database=9
+
+    redis.activity.ip=redis-cluster-ip-service.database
+    redis.activity.port=6379
+    redis.activity.timeout=2000
+    redis.activity.password=
+    redis.activity.database=4
+
+    #dubbo
+    dubbo.zkAddress=zookeeper://zookeeper-cluster-ip-service.database:2181
+    dubbo.serverName=web_
+    dubbo.port=8283
+    dubbo.timeout=20000
+    dubbo.bbDubboDumpDirectory=dubbo
+    dubbo.cluster=
+
+    #server
+    server.web=1
+    server.webSocket=0
+    server.webApi=0
+    server.test=0
+    server.partner=0
+    server.gm=0
+    server.imgRealPath=/root/btc/web/img/files
+    server.imgInternetPath=http://39.104.88.237:8088/img/files/
+    server.accountDbName=account
+
+    #hibtc_web.dubbo.zookeeper.address=zookeeper://127.0.0.1:2181?backup=127.0.0.1:2281,127.0.0.1:2381
+    hibtc_web.dubbo.zookeeper.address = zookeeper://zookeeper-cluster-ip-service.database:2181
+
+    hibtc_web.dubbo.server.name=hibtc_web
+    hibtc_web.dubbo.protocol.port=8282
+
+    #rocketMQ
+    server.mqAddr=rmqnamesrv-cluster-ip-service.database:9876
+    server.mqGroup=web-consumer
+    server.mqTopic=ETH_BTC,Account
+    server.mqBatchMaxSize=2000
+
+    ACTIVITY_FLAG_OPEN=true
+
+    REG_USER_ALL_EMAIL=@exonline.com
+
+    #Swagger Open API
+    springdoc.api-docs.version=OPENAPI_3_0
+    springdoc.api-docs.enabled=true
+    springdoc.api-docs.path=/swagger/api-specification
+    springdoc.swagger-ui.enabled=false
+    springdoc.cache.disabled=true
