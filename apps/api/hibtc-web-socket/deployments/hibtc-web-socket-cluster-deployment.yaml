@@ -13,14 +13,10 @@ spec:
   selector:
     matchLabels:
       app: hibtc-web-socket
-      cluster: "0"
-      version: "1"
   template:
     metadata:
       labels:
         app: hibtc-web-socket
-        cluster: "0"
-        version: "1"
     spec:
       volumes:
         - name: hibtc-web-socket
@@ -32,6 +28,9 @@ spec:
         - name: common
           hostPath:
             path: /apps/RunningServer/Source/common
+        - name: application-dev-ws-api
+          configMap:
+            name: application-dev-ws-api
       initContainers:
         - name: war
           tty: true
@@ -45,6 +44,9 @@ spec:
               mountPath: /usr/src/hibtc-web-socket
             - name: common
               mountPath: /usr/src/common
+            - name: application-dev-ws-api
+              mountPath: /usr/src/hibtc-web-socket/src/main/resources/application-dev-ws-api.properties
+              subPath: application-dev-ws-api.properties
         - name: folder-setup
           image: cuongpct109/java-gradle:min
           imagePullPolicy: IfNotPresent

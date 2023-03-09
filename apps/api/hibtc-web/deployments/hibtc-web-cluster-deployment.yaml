@@ -13,14 +13,10 @@ spec:
   selector:
     matchLabels:
       app: hibtc-web
-      cluster: "0"
-      version: "1"
   template:
     metadata:
       labels:
         app: hibtc-web
-        cluster: "0"
-        version: "1"
     spec:
       volumes:
         - name: hibtc-web
@@ -32,6 +28,9 @@ spec:
         - name: common
           hostPath:
             path: /apps/RunningServer/Source/common
+        - name: application-dev-web
+          configMap:
+            name: application-dev-web
       initContainers:
         - name: war
           tty: true
@@ -45,6 +44,9 @@ spec:
               mountPath: /usr/src/hibtc-web
             - name: common
               mountPath: /usr/src/common
+            - name: application-dev-web
+              mountPath: /usr/src/hibtc-web/src/main/resources/application-dev-web.properties
+              subPath: application-dev-web.properties
         - name: folder-setup
           image: cuongpct109/java-gradle:min
           imagePullPolicy: IfNotPresent
