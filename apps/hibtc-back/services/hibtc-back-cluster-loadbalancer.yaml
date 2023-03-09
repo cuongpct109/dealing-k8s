@@ -11,6 +11,6 @@ spec:
   selector:
     app: hibtc-back
   type: LoadBalancer
-  loadBalancerIP: 172.30.0.104
+  loadBalancerIP: 172.30.0.100
 status:
   loadBalancer: {}
