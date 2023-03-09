@@ -73,13 +73,13 @@ spec:
               mountPath: /usr/src/xex-back
             - name: jdbc
               mountPath: /usr/src/xex-back/config/jdbc.properties
-              # subPath: .env
+              subPath: jdbc.properties
             - name: redis
               mountPath: /usr/src/xex-back/config/redis.properties
-              # subPath: .env
+              subPath: redis.properties
             - name: rocketmq
               mountPath: /usr/src/xex-back/config/RocketMQ.properties
-              # subPath: .env
+              subPath: RocketMQ.properties
         - name: unzip-xex-back
           image: cuongpct109/java-gradle:min
           env:
