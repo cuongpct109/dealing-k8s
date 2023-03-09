@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hibtc-web-cluster-loadbalancer
-  namespace: api
+  name: hibtc-back-cluster-loadbalancer
+  namespace: admin
 spec:
   ports:
     - port: 80
       protocol: TCP
-      targetPort: 8080
+      targetPort: 8085
   selector:
-    app: hibtc-web
+    app: hibtc-back
   type: LoadBalancer
-  loadBalancerIP: 172.30.0.101
+  loadBalancerIP: 172.30.0.104
 status:
   loadBalancer: {}
