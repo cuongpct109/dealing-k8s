@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hibtc-back-cluster-deployment
+  namespace: admin
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hibtc-back
+  template:
+    metadata:
+      labels:
+        app: hibtc-back
+    spec:
+      volumes:
+        - name: common
+          hostPath:
+            path: /apps/RunningServer/Source/common
+        - name: hibtc-web-back
+          hostPath:
+            path: /apps/RunningServer/Source/hibtc-web-back
+        - name: xex-back
+          hostPath:
+            path: /apps/RunningServer/Source/xex-back
+        - name: xex-back-webapps
+          hostPath:
+            path: /apps/RunningServer/Source/xex-back/dist/hibtc-back
+        - name: hibtc-web-back-webapps
+          hostPath:
+            path: /apps/RunningServer/Source/hibtc-web-back/build/libs/web
+      initContainers:
+        - name: hibtc-web-back
+          tty: true
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: Always
+          workingDir: /usr/src/hibtc-web-back
+          command: ["gradle"]
+          args: ["task", "war", "--no-daemon"]
+          volumeMounts:
+            - name: hibtc-web-back
+              mountPath: /usr/src/hibtc-web-back
+        - name: xex-back
+          tty: true
+          image: cuongpct109/java-ant:min
+          imagePullPolicy: Always
+          workingDir: /usr/src/xex-back
+          command: ["ant"]
+          volumeMounts:
+            - name: xex-back
+              mountPath: /usr/src/xex-back
+        - name: unzip-xex-back
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: IfNotPresent
+          workingDir: /usr/src/xex-back
+          command: ["unzip"]
+          args: ["-o", "dist/hibtc-back.war", "-d", "dist/hibtc-back"]
+          volumeMounts:
+            - name: xex-back
+              mountPath: /usr/src/xex-back
+        - name: unzip-hibtc-web-back
+          image: cuongpct109/java-gradle:min
+          imagePullPolicy: IfNotPresent
+          workingDir: /usr/src/hibtc-web-back
+          command: ["unzip"]
+          args:
+            [
+              "-o",
+              "build/libs/hibtc-web-back-0.0.1-SNAPSHOT.war",
+              "-d",
+              "build/libs/web",
+            ]
+          volumeMounts:
+            - name: hibtc-web-back
+              mountPath: /usr/src/hibtc-web-back
+      containers:
+        - name: hibtc-back
+          image: cuongpct109/hibtc-back-base:latest
+          imagePullPolicy: IfNotPresent
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: liveness-port
+          #   initialDelaySeconds: 120
+          #   periodSeconds: 30
+          # ports:
+          #   - name: liveness-port
+          #     containerPort: 8080
+          volumeMounts:
+            - name: xex-back-webapps
+              mountPath: /usr/local/tomcat/webapps/hibtc-back
+            - name: hibtc-web-back-webapps
+              mountPath: /usr/local/tomcat/webapps/web
+          # resources:
+          #   requests:
+          #     memory: "600Mi"
