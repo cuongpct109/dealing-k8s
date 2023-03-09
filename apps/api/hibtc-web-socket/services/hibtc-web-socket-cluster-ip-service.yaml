@@ -5,14 +5,10 @@ metadata:
   namespace: api
   labels:
     app: hibtc-web-socket
-    cluster: "0"
-    version: "1"
 spec:
   type: ClusterIP
   selector:
     app: hibtc-web-socket
-    cluster: "0"
-    version: "1"
   ports:
     - name: http
       port: 8082

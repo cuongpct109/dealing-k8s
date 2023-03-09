@@ -7,8 +7,6 @@ spec:
   type: ClusterIP
   selector:
     app: frontend
-    cluster: "0"
-    version: "1"
   ports:
     - name: http
       port: 3000

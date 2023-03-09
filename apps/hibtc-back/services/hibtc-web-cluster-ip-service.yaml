@@ -1,18 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hibtc-web-cluster-ip-service
+  name: hibtc-back-cluster-ip-service
   namespace: api
   labels:
-    app: hibtc-web
-    cluster: "0"
-    version: "1"
+    app: hibtc-back
 spec:
   type: ClusterIP
   selector:
-    app: hibtc-web
-    cluster: "0"
-    version: "1"
+    app: hibtc-back
   ports:
     - name: http
       port: 8081
