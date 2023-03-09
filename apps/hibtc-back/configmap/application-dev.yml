@@ -8,35 +8,35 @@ data:
     spring.profiles.include=staging-hosts
 
     #db
-    db.web.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/web?useUnicode=true&characterEncoding=UTF-8
+    db.web.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/web?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     db.web.username=service
     db.web.password=service
 
-    db.otc.dburl=jdbc:mysql://mysql-cluster-ip-service.database:3306/otc?useUnicode=true&characterEncoding=UTF-8
+    db.otc.dburl=jdbc:mysql://mysql-cluster-ip-service.database:3306/otc?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     db.otc.username=service
     db.otc.password=service
 
-    db.bb.dburl=jdbc:mysql://mysql-cluster-ip-service.database:3306/bb?useUnicode=true&characterEncoding=UTF-8
+    db.bb.dburl=jdbc:mysql://mysql-cluster-ip-service.database:3306/bb?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     db.bb.username=service
     db.bb.password=service
 
-    db.account.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/account?useUnicode=true&characterEncoding=UTF-8
+    db.account.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/account?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     db.account.username=service
     db.account.password=service
 
-    db.chat.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/chat_facet?useUnicode=true&characterEncoding=UTF-8
+    db.chat.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/chat_facet?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     db.chat.username=service
     db.chat.password=service
 
-    db.mine.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/mine?useUnicode=true&characterEncoding=UTF-8
+    db.mine.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/mine?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     db.mine.username=service
     db.mine.password=service
 
-    db.activity.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/activity?useUnicode=true&characterEncoding=UTF-8
+    db.activity.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/activity?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     db.activity.username=service
     db.activity.password=service
 
-    db.config.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/config?useUnicode=true&characterEncoding=UTF-8
+    db.config.dbUrl=jdbc:mysql://mysql-cluster-ip-service.database:3306/config?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     db.config.username=service
     db.config.password=service
 
