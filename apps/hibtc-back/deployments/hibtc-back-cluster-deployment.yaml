@@ -50,6 +50,9 @@ spec:
         - name: xex-back
           tty: true
           image: cuongpct109/java-ant:min
+          env:
+            - name: UNZIP_DISABLE_ZIPBOMB_DETECTION
+              value: "TRUE"
           imagePullPolicy: Always
           workingDir: /usr/src/xex-back
           command: ["ant"]
